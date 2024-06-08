@@ -1,27 +1,30 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../auth.service';
+import { Router, RouterLink } from '@angular/router';
+import swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import swal from 'sweetalert2';
-import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../auth.service';
-import { RegisterComponent } from '../register/register.component';
 
 @Component({
-  selector: 'app-signin',
+  selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, RegisterComponent, RouterLink],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  imports: [CommonModule, FormsModule, RouterLink],
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
-export class LoginComponent {
+export class RegisterComponent {
 
-  constructor(private authService: AuthService,  private router: Router) {} // Inyecta el servicio AuthService
+  nombre: string;
+  apellidos: string;
   username: string;
   password: string;
+  email: string;
   token: string;
   roles: string[] = [];
+  
+  constructor(private authService: AuthService,  private router: Router) {} // Inyecta el servicio AuthService
 
-  login() {
+  register() {
     console.log("Intentando iniciar sesión con:", this.username, this.password);
     this.authService.register(this.username, this.password).subscribe({
       next: (response: any) => {
@@ -36,7 +39,6 @@ export class LoginComponent {
       }
     });
   }
-
   verDashboard() {
     if (this.authService.isAdmin()) {
       this.router.navigate(['/empleados']);

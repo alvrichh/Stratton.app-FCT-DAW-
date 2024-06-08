@@ -18,3 +18,7 @@
 .card-header {
     border-bottom: 1px solid rgba(255, 255, 255, .1);
 }
+.btn-negro{
+    background-color: black;
+    color: white;
+}
